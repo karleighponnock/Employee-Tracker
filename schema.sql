@@ -1,6 +1,4 @@
 --  Schema for the MySQL database. Add some seed values for testing 
-
-
 -- * **department**:
 DROP DATABASE IF EXISTS company_DB;
 CREATE database company_DB;

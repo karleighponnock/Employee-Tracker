@@ -2,11 +2,8 @@
 view and manage the departments, roles, and employees for a company
 //========================================================================
 // CODE OVERVIEW
-// Create the Schema for the MySQL database. Add some seed values for testing (These are on separate sheets) 
-// Build a command-line application that at a minimum allows the user to:
-    // Add departments, roles, employees
-    // View departments, roles, employees
-    // Update employee roles
+
+
 // The command line will access and update the created MYSQL database
 //========================================================================
 // Require Dependencies
