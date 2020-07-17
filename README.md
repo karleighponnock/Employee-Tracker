@@ -1,7 +1,8 @@
 # Employee-Tracker
-view and manage the departments, roles, and employees for a company
-//========================================================================
-// CODE OVERVIEW
+**view and manage the departments, roles, and employees for a company
+
+
+# CODE OVERVIEW
 
 
 // The command line will access and update the created MYSQL database
