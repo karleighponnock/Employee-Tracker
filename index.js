@@ -22,9 +22,6 @@ connection.connect(function(err){
 });
 
 function startApp(){
-    inquirer
-//prompt for action
-    .prompt = () => {
     inquirer.prompt([{
         name: "action",
         type: "list",
