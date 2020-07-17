@@ -57,7 +57,27 @@ function startApp() {
     )
 };
 
+function viewEmployees(){
 
+};
+function employeeByDept(){
+
+};
+function employeeByMan(){
+
+};
+function addEmployee(){
+
+};
+function remEmployee(){
+
+};
+function updateEmployee(){
+
+};
+function updateEmployeeMan(){
+    
+};
 
 
 
