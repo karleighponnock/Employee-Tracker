@@ -3,7 +3,6 @@ var express = require("express");
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
-
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -12,14 +11,12 @@ var connection = mysql.createConnection({
     port: 3306
 });
 
-connection.connect();
-
-var connection = mysql.createConnection(connection);
-
+//connect
 connection.connect(function (err) {
-    if (err) throw err;
-    startApp();
+if(err) throw err;
+    startApp()
 });
+
 
 function startApp() {
     inquirer.prompt([{
@@ -33,6 +30,7 @@ function startApp() {
                  "Update Employee Role",
                  "Update Employee Manager",
                  "Exit Program"
+                 
         ],
         message: "What would you like to do?"
     }
@@ -52,12 +50,14 @@ function startApp() {
                 updateEmployee();
             } else if (answer.action === "Update Employee Manager") {
                 updateEmployeeMan();
+            } else{
+                console.log("Goodbye")
             }
         }
     )
 };
 
-prompt();
+
 
 
 
