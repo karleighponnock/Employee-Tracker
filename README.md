@@ -2,27 +2,8 @@
 **view and manage the departments, roles, and employees for a company
 
 
+******I have redone this code several times and am struggling please see my commits I have had the functions working but broke things and have had to start over again. 
+
 # CODE OVERVIEW
 
-
-// The command line will access and update the created MYSQL database
-//========================================================================
-// Require Dependencies
-// Establish Connection with MySQL
-// Create the start function that uses inquirer to ask the user what actions he/she wants to take:
-        // Add Departments
-        // Add Roles
-        // Add Employees
-        // View departments
-        // View Roles
-        // View employees
-        // Update employee roles
-    // Based off the answer, certain functions will run that perform that action.
-// Function to add departments to the department table:
-// Function to add roles to the employee_role table:
-// Function to add employees to the employee table:
-// Function to view departments in the department table:
-// Function to view roles in the employee_role table:
-// Function to view employees in the employees table:
-// Function to update employee role by changing the role_id in the employee table:
-
+This code refrences a database with three tables. The schema and seeds live inside a folder titled "db"
