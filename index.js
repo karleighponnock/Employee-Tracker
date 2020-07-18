@@ -55,7 +55,7 @@ function startApp() {
                 updateEmployee();
             } else if (answer.action === "Update Employee Manager") {
                 updateEmployeeMan();
-            } else if (answer.action === "Exit Application") {
+            } else if (answer.action === "Exit Program") {
                 exit();
             }
         }
@@ -164,13 +164,11 @@ function addEmployee() {
                         
                 }).then(function(answer) {
 
-                 if (answer.end === "Quit Application"){
-                    quit();
+                 if (answer.end === "Quit Application?"){
+                    console.log("Goodbye!")
+                 connection.end()
                 }
                 })
                 }
                 
-                //exit function to end connection
-                function quit(){
-                 connection.end()
-                }
+                
