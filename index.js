@@ -78,9 +78,13 @@ function viewDept() {
     })
 };
 
-// function viewRoles() {
-
-// };
+function viewRoles() {
+    connection.query( "SELECT employee_role.id, employee_role.title, department.dept_name AS department, employee_role.salary FROM employee_role LEFT JOIN department on employee_role.department_id = department.id;", function (error, results){
+        if (error) throw error
+        console.table(results)
+        back();
+    })   
+};
 
 ///add an employee
 function addEmployee() {
