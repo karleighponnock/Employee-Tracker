@@ -25,13 +25,14 @@ function startApp() {
         name: "action",
         type: "list",
         //array of choices
-        choices: ["View  All Employees",
+        choices: [
+            "View  All Employees",
             "View All Departments",
             "View All Roles",
             "Add employee",
-            "Remove employee",
+            "Add Department",
+            "Add Role",
             "Update Employee Role",
-            "Update Employee Manager",
             "Exit Program"
 
         ],
@@ -47,14 +48,14 @@ function startApp() {
                 viewDept();
             } else if (answer.action === "View All Roles") {
                 viewRoles();
-            } else if (answer.action === "Add employee") {
-                addEmployee();
-            } else if (answer.action === "Remove employee") {
-                remEmployee();
-            } else if (answer.action === "Update Employee Role") {
-                updateEmployee();
-            } else if (answer.action === "Update Employee Manager") {
-                updateEmployeeMan();
+            } else if (answer.action === "Add Department") {
+                addDept();
+            }else if (answer.action === "Add Role") {
+                addRole();
+            }else if (answer.action === "Add employee") {
+                    addEmployee();
+            }else if (answer.action === "Update Employee Role") {
+                updateEmployeeRole();
             } else if (answer.action === "Exit Program") {
                 exit();
             }
@@ -62,7 +63,7 @@ function startApp() {
     )
 };
 
-function viewEmployees(){
+function viewEmployees() {
     connection.query("SELECT employee.id, employee.first_name, employee.last_name, employee_role.title, employee_role.salary from employeeTracker_DB.employee LEFT JOIN employee_role ON employee_role.id = employee.role_id", function (error, results) {
         if (error) throw error
         console.table(results)
@@ -71,40 +72,66 @@ function viewEmployees(){
 }
 
 function viewDept() {
-    connection.query("SELECT * FROM department", function (error, results){
-        if(error) throw error;
+    connection.query("SELECT * FROM department", function (error, results) {
+        if (error) throw error;
         console.table(results);
         startApp();
     })
 };
 
 function viewRoles() {
-    connection.query( "SELECT employee_role.id, employee_role.title, department.dept_name AS department, employee_role.salary FROM employee_role LEFT JOIN department on employee_role.department_id = department.id;", function (error, results){
+    connection.query("SELECT employee_role.id, employee_role.title, department.dept_name AS department, employee_role.salary FROM employee_role LEFT JOIN department on employee_role.department_id = department.id;", function (error, results) {
         if (error) throw error
         console.table(results)
         back();
-    })   
+    })
 };
+
+function addDept() {
+    inquirer.prompt({
+        name: "newDepartment",
+        type: "input",
+        message: "What department would you like to add?",
+    })
+        .then(answers => {
+            connection.query("INSERT INTO department SET ?",
+                {
+                    name: answers.newDepartment,
+                },
+                (err, results) => {
+                    if (err) throw err;
+                    console.table(results);
+                    start();
+                })
+        })
+};
+
+
+function addRole(){
+
+
+}
+
 
 ///add an employee
 function addEmployee() {
-    connection.query("SELECT * FROM employee_role", function (err, results){
+    connection.query("SELECT * FROM employee_role", function (err, results) {
         inquirer
             .prompt([
-                {   
+                {
                     name: "firstName",
                     type: "input",
                     message: "First Name:",
 
                 },
-                {   
+                {
                     name: "lastName",
                     type: "input",
                     message: "lastName?",
 
                 },
-                {  
-                     type: "list",
+                {
+                    type: "list",
                     name: "role_id",
                     message: "What is the new employee's role?",
                     choices: function () {
@@ -118,10 +145,10 @@ function addEmployee() {
                     }
                 },
             ])
-            .then(function(answer){
+            .then(function (answer) {
 
                 var employee_id;
-                for (r = 0; r < results.length; r++){
+                for (r = 0; r < results.length; r++) {
                     if (results[r].title === answer.role_id) {
                         employee_id = results[r].id;
                     }
@@ -143,35 +170,28 @@ function addEmployee() {
                     }
                 )
             })
-        })
-    }
+    })
+}
 
-                // function remEmployee() {
+//////////TODO update employees role
+function updateEmployeeRole() {
+  
+};
 
-                // };
-                // function updateEmployee() {
+//end app function
+function exit() {
+    inquirer.prompt({
 
-                // };
-                // function updateEmployeeMan() {
+        name: "end",
+        type: "list",
+        choices: ["Quit Application?"]
 
-                // };
+    }).then(function (answer) {
 
+        if (answer.end === "Quit Application?") {
+            console.log("Goodbye!")
+            connection.end()
+        }
+    })
+}
 
-                //end app function
-                function exit(){
-                    inquirer.prompt({
-                        
-                            name: "end",
-                            type: "list",
-                            choices: ["Quit Application?"]
-                        
-                }).then(function(answer) {
-
-                 if (answer.end === "Quit Application?"){
-                    console.log("Goodbye!")
-                 connection.end()
-                }
-                })
-                }
-                
-                
