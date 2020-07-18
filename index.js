@@ -87,30 +87,59 @@ function viewRoles() {
     })
 };
 
-function addDept() {
-    inquirer.prompt({
-        name: "newDepartment",
-        type: "input",
-        message: "What department would you like to add?",
-    })
+// function addDept() {
+//     inquirer.prompt({
+//         name: "newDepartment",
+//         type: "input",
+//         message: "What department would you like to add?",
+//     })
+//         .then(answers => {
+//             connection.query("INSERT INTO department SET ?",
+//                 {
+//                     name: answers.newDepartment,
+//                 },
+//                 (err, results) => {
+//                     if (err) throw err;
+//                     console.table(results);
+//                     startApp();
+//                 })
+//         })
+// };
+
+/////////todo add a role type
+function addRole(){
+    inquirer.prompt([
+        {
+            name: "title",
+            type: "input",
+            message: "Role Title:"
+        },
+        {
+            name: "salary",
+            type: "input",
+            message: "Salary:"
+        },
+        {
+            name: "dept_Id",
+            type: "input",
+            message: "Department ID:",
+        },
+    ])
         .then(answers => {
-            connection.query("INSERT INTO department SET ?",
+
+            connection.query("INSERT INTO employee_role SET ?",
                 {
-                    name: answers.newDepartment,
+                    title: answers.title,
+                    salary: answers.salary,
+                    department_id: answers.dept_Id
                 },
+
                 (err, results) => {
                     if (err) throw err;
-                    console.table(results);
-                    start();
+                    startApp();
                 })
         })
-};
-
-
-function addRole(){
-
-
-}
+    }
 
 
 ///add an employee
@@ -174,9 +203,9 @@ function addEmployee() {
 }
 
 //////////TODO update employees role
-function updateEmployeeRole() {
+// function updateEmployeeRole() {
   
-};
+// };
 
 //end app function
 function exit() {
