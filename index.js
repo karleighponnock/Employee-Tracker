@@ -86,13 +86,15 @@ function employeeByMan() {
             message: "Last Name: "
         }
     ]).then(answer => {
-        //make a query to database insert into "table name" then pass the first and last name ansers through the correlating columns
-                connection.query(`INSERT INTO employee (first_name, last_name) values("${answer.firsttName, answer.lastName}")`, function (error, results) {
+        //make a query to database insert into "table name" then pass answers through corresponsding columns
+                connection.query("INSERT INTO employee (first_name, last_name) values(${answer.firsttName, answer.lastName}"), function (error, results) {
                     if (error) throw error;
                     console.log(results);
                     console.log("We did it")
-                })
-     }
+                }
+        })
+    }
+}
     
 
 
