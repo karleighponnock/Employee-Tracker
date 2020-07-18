@@ -2,6 +2,7 @@
 var express = require("express");
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var ctable = require("ctable")
 
 
 //create connection to database
