@@ -10,18 +10,29 @@
   ## Title
   Employee_Tracker
   ## Description
- **view and manage the departments, roles, and employees for a company
+  View and manage the departments, roles, and employees for a company
   ## Installation
   inquirer, mysql, cTable
   ## Questions
-  If you have any questions, email me at ryanschuttig@gmail.com, or visit my GitHub page at https://github.com/ryanschuttig.
-
-  https://drive.google.com/file/d/15keAV_cPG84YkQehgg_A49CpCZntCehu/view
-
-******I have redone this code several times and am struggling please see my commits I am working on it!!!!
+For qurestions contact at:
+karleighponnock@gmail.com,
+ or visit my GitHub page at https://github.com/karleighponnock
 
 # CODE OVERVIEW
 
 This code refrences a database with three tables. The schema and seeds live inside a folder titled "db"
 
-The index.js
+The index.js file uses inquirer to prompt the user for an action.
+These actions each have a corresponding function that make queries to acess/ and alter the information in each database
+The function are currently:
+
+viewEmployees();
+viewDept();
+addDept();
+addRole();
+addEmployee();
+updateEmployeeRole();
+exit();
+
+:however; the code is dynamic and many more functions can be added in the same inquirer prompt.
+
