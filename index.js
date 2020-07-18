@@ -64,8 +64,13 @@ function startApp() {
 };
 
 function viewEmployees() {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, employee_role.title, employee_role.salary from employeeTracker_DB.employee LEFT JOIN employee_role ON employee_role.id = employee.role_id", function (error, results){
+        if (error) throw error
+        console.table(results)
+      startApp();
+    })
+  };
 
-};
 function employeeByDept() {
 
 };
@@ -74,28 +79,57 @@ function employeeByMan() {
 };
 
 ///add an employee
- function addEmployee(){
-    const addEmployee = () => {
-        inquirer.prompt([{
-            name: "firstName",
-            type: "input",
-            message: "First Name: "
-        },
-        {   name: "lastName",
-            type: "input",
-            message: "Last Name: "
-        }
-    ]).then(answer => {
-        //make a query to database insert into "table name" then pass answers through corresponsding columns
-                connection.query("INSERT INTO employee (first_name, last_name) values(${answer.firsttName, answer.lastName}"), function (error, results) {
-                    if (error) throw error;
-                    console.log(results);
-                    console.log("We did it")
-                }
-        })
+function addEmployee() {
+        inquirer
+            .prompt([
+                {
+                    name: "firstName",
+                    type: "input",
+                    message: "First Name: ",
+
+                },
+                {
+                    name: "lastName",
+                    type: "input",
+                    message: "lastName?",
+
+                },
+                {
+                    name: "employeeRole",
+                    type: "list",
+                    message: "What is the employee's role?",
+                    choices: [
+                        "Front End",
+                        "Back End",
+                        "Software Dev",
+                        "Marketing",
+                        "Cyber Security",
+                        "Management",
+                        "Machine Learning Engineer",
+                        "Junior Dev",
+                    ]
+                },
+            ]).then(function (answer) {
+                // when finished prompting, insert a new item into the db with that info
+                connection.query(
+                    "INSERT INTO employee SET ?",
+                    {
+                        first_name: answer.firstName,
+                        last_name: answer.lastName,
+                        role_id: answer.employeeRole,
+                        manager_id: answer.manager_id,
+                    },
+                    function (err) {
+                        if (err) throw err;
+                        console.log("New employee created and added to database!");
+                        // Restart the prompt
+                        startApp();
+                    }
+                );
+            });
     }
-}
-    
+
+
 
 
 
@@ -110,4 +144,4 @@ function employeeByMan() {
                 // function updateEmployeeMan() {
 
                 // };
-            
+
