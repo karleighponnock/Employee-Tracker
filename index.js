@@ -55,69 +55,76 @@ function startApp() {
                 updateEmployee();
             } else if (answer.action === "Update Employee Manager") {
                 updateEmployeeMan();
-            } else {
-                //if exit program is selected we console goodbye and end here
-                console.log("Goodbye")
+            } else if (answer.action === "Exit Application") {
+                exit();
             }
         }
     )
 };
 
-function viewEmployees() {
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, employee_role.title, employee_role.salary from employeeTracker_DB.employee LEFT JOIN employee_role ON employee_role.id = employee.role_id", function (error, results){
+function viewEmployees(){
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, employee_role.title, employee_role.salary from employeeTracker_DB.employee LEFT JOIN employee_role ON employee_role.id = employee.role_id", function (error, results) {
         if (error) throw error
         console.table(results)
-      startApp();
+        startApp();
     })
-  };
+}
 
-function employeeByDept() {
+// function employeeByDept() {
 
-};
-function employeeByMan() {
+// };
+// function employeeByMan() {
 
-};
+// };
 
 ///add an employee
 function addEmployee() {
+    connection.query("SELECT * FROM employee_role", function (err, results){
         inquirer
             .prompt([
-                {
+                {   
                     name: "firstName",
                     type: "input",
-                    message: "First Name: ",
+                    message: "First Name:",
 
                 },
-                {
+                {   
                     name: "lastName",
                     type: "input",
                     message: "lastName?",
 
                 },
-                {
-                    name: "employeeRole",
-                    type: "list",
-                    message: "What is the employee's role?",
-                    choices: [
-                        "Front End",
-                        "Back End",
-                        "Software Dev",
-                        "Marketing",
-                        "Cyber Security",
-                        "Management",
-                        "Machine Learning Engineer",
-                        "Junior Dev",
-                    ]
+                {  
+                     type: "list",
+                    name: "role_id",
+                    message: "What is the new employee's role?",
+                    choices: function () {
+
+                        var employeeArr = [];
+                        for (i = 0; i < results.length; i++) {
+                            employeeArr.push(results[i].title);
+                        }
+                        // console.log(empArray);
+                        return employeeArr;
+                    }
                 },
-            ]).then(function (answer) {
+            ])
+            .then(function(answer){
+
+                var employee_id;
+                for (r = 0; r < results.length; r++){
+                    if (results[r].title === answer.role_id) {
+                        employee_id = results[r].id;
+                    }
+                }
+
                 // when finished prompting, insert a new item into the db with that info
                 connection.query(
                     "INSERT INTO employee SET ?",
                     {
                         first_name: answer.firstName,
                         last_name: answer.lastName,
-                        role_id: answer.employeeRole,
-                        manager_id: answer.manager_id,
+                        role_id: employee_id,
                     },
                     function (err) {
                         if (err) throw err;
@@ -125,8 +132,9 @@ function addEmployee() {
                         // Restart the prompt
                         startApp();
                     }
-                );
-            });
+                )
+            })
+        })
     }
 
 
@@ -145,3 +153,24 @@ function addEmployee() {
 
                 // };
 
+
+                //end app function
+                function exit(){
+                    inquirer.prompt({
+                        
+                            name: "end",
+                            type: "list",
+                            choices: ["Quit Application?"]
+                        
+                }).then(function(answer) {
+
+                 if (answer.end === "Quit Application"){
+                    quit();
+                }
+                })
+                }
+                
+                //exit function to end connection
+                function quit(){
+                 connection.end()
+                }
