@@ -26,8 +26,8 @@ function startApp() {
         type: "list",
         //array of choices
         choices: ["View  All Employees",
-            "View  All Employees By Departments",
-            "View  All Employees By Manager",
+            "View All Departments",
+            "View All Roles",
             "Add employee",
             "Remove employee",
             "Update Employee Role",
@@ -43,10 +43,10 @@ function startApp() {
         answer => {
             if (answer.action === "View  All Employees") {
                 viewEmployees();
-            } else if (answer.action === "View  All Employees By Departments") {
-                employeeByDept();
-            } else if (answer.action === "View  All Employees By Manager") {
-                employeeByMan();
+            } else if (answer.action === "View All Departments") {
+                viewDept();
+            } else if (answer.action === "View All Roles") {
+                viewRoles();
             } else if (answer.action === "Add employee") {
                 addEmployee();
             } else if (answer.action === "Remove employee") {
@@ -70,10 +70,15 @@ function viewEmployees(){
     })
 }
 
-// function employeeByDept() {
+function viewDept() {
+    connection.query("SELECT * FROM department", function (error, results){
+        if(error) throw error;
+        console.table(results);
+        startApp();
+    })
+};
 
-// };
-// function employeeByMan() {
+// function viewRoles() {
 
 // };
 
@@ -136,12 +141,6 @@ function addEmployee() {
             })
         })
     }
-
-
-
-
-
-
 
                 // function remEmployee() {
 
