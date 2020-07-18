@@ -50,11 +50,11 @@ function startApp() {
                 viewRoles();
             } else if (answer.action === "Add Department") {
                 addDept();
-            }else if (answer.action === "Add Role") {
+            } else if (answer.action === "Add Role") {
                 addRole();
-            }else if (answer.action === "Add employee") {
-                    addEmployee();
-            }else if (answer.action === "Update Employee Role") {
+            } else if (answer.action === "Add employee") {
+                addEmployee();
+            } else if (answer.action === "Update Employee Role") {
                 updateEmployeeRole();
             } else if (answer.action === "Exit Program") {
                 exit();
@@ -87,27 +87,26 @@ function viewRoles() {
     })
 };
 
-// function addDept() {
-//     inquirer.prompt({
-//         name: "newDepartment",
-//         type: "input",
-//         message: "What department would you like to add?",
-//     })
-//         .then(answers => {
-//             connection.query("INSERT INTO department SET ?",
-//                 {
-//                     name: answers.newDepartment,
-//                 },
-//                 (err, results) => {
-//                     if (err) throw err;
-//                     console.table(results);
-//                     startApp();
-//                 })
-//         })
-// };
+function addDept() {
+    inquirer.prompt({
+        name: "newDepartment",
+        type: "input",
+        message: "What department would you like to add?",
+    }).then(answers => {
+        connection.query("INSERT INTO department SET ?",
+            {
+            department_name: answers.newDepartment,
+            },
+            (err, results) => {
+                console.log("New Department created and added to database!")
+                if (err) throw err;
+                startApp();
+            })
+    })
+};
 
 /////////todo add a role type
-function addRole(){
+function addRole() {
     inquirer.prompt([
         {
             name: "title",
@@ -139,7 +138,7 @@ function addRole(){
                     startApp();
                 })
         })
-    }
+}
 
 
 ///add an employee
@@ -204,7 +203,7 @@ function addEmployee() {
 
 //////////TODO update employees role
 // function updateEmployeeRole() {
-  
+
 // };
 
 //end app function
